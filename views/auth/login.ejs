@@ -1,0 +1,37 @@
+<%- include('../partials/header') %>
+
+<div class="jumbotron jumbotron-fluid text-center">
+    <h2 class="mb-3"><%= title %></h2>
+
+        <% if(successMessage) { %>
+            <div class="alert alert-success mb-3" role="alert">
+                <p class="text-center">
+                    <%= successMessage %>
+                </p>
+            </div>
+        <% } %>
+
+        <% if(errors) {%>
+            <div class="alert alert-danger mb-3" role="alert">
+            <% errors.forEach(error => { %>
+                <p class="text-center"><%= error.msg %></p>
+            <% }) %>
+            </div>
+        <% } %>
+
+    <div class="d-flex justify-content-center mb-3 form">
+        <form method="POST" action="/auth/login" class="form-login">
+            <div class="form-group">
+                <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Unesite Vašu e-mail adresu" required autofocus />
+            </div>
+            <div class="form-group">
+                <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Unesite Vašu lozinku" required />            
+            </div>
+            <button type="submit" class="btn btn-primary">Prijavite se</button>
+        </form>
+    </div>
+    <hr>
+    <div class="mt-2">
+        <p class="text-center">Nemate nalog? <a href="/auth/register">Registrujte se</a></p>
+    </div>
+</div>

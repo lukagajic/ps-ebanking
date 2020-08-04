@@ -1,0 +1,85 @@
+<%- include('../partials/header') %>
+
+<div class="jumbotron jumbotron-fluid">
+    <h2 class="mb-3 text-center"><%= title %></h2>
+
+    <% if(errors) {%>
+        <div class="alert alert-danger mb-3" role="alert">
+        <% errors.forEach(error => { %>
+            <p class="text-center"><%= error.msg %></p>
+        <% }) %>
+        </div>
+    <% } %>
+
+    <div class="mb-3 d-flex justify-content-center">
+        <form class="form-wide" action="/auth/register" method="POST">
+            <div class="form-group">
+                <label for="inputForename">Ime</label>
+                <input type="text" class="form-control" id="inputForename" name="forename" required placeholder="Unesite ime" autofocus />
+            </div>
+            <div class="form-group">
+                <label for="inputSurname">Prezime</label>
+                <input type="text" class="form-control" id="inputSurname" name="surname" required placeholder="Unesite prezime" />
+            </div>
+            <div class="form-group">
+                <label for="inputEmail">E-mail adresa</label>
+                <input type="email" name="email" class="form-control" id="inputEmail" required placeholder="Unesite e-mail adresu" />
+            </div>
+            <div class="form-group">
+                <label for="inputPassword">Lozinka</label>
+                <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Unesite lozinku" />
+                <small id="passwordHelp" class="form-text text-muted">Lozinka mora da sadrži minimum 8 karaktera.</small>
+            </div>
+            <div class="form-group">
+                <label for="inputPasswordConfirm">Potvrda lozinke</label>
+                <input type="password" name="password-confirm" class="form-control" id="inputPasswordConfirm" placeholder="Potvrdite lozinku" />
+            </div>
+            <div class="form-group">
+                <label for="inputCity">Izaberite grad</label>
+                <select class="form-control" name="city" id="inputCity">
+                    <% cities.forEach(city => { %>
+                        <option value="<%= city.dataValues.cityId %>"><%= city.dataValues.name %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inputGender">Pol</label>
+                <select class="form-control" name="gender" id="inputGender">
+                    <% genders.forEach(gender => { %>
+                        <option value="<%= gender %>">
+                            <% if(gender === 'male') { %>
+                                Muški
+                            <% } %>
+                            <% if(gender === 'female') { %>
+                                Ženski
+                            <% } %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inputDateOfBirth">Datum rođenja</label>
+                <input class="form-control" type="date" value="2000-01-01" id="inputDateOfBirth" name="birthdate">
+            </div>
+            <div class="form-group">
+                <label for="inputAddress">Adresa</label>
+                <input type="text" class="form-control" id="inputAddress" name="address" required placeholder="Unesite adresu" />
+            </div>
+            <div class="form-group">
+                <label for="inputPostalCode">Poštanski kod</label>
+                <input type="text" class="form-control" id="inputPostalCode" name="postalCode" required placeholder="Unesite poštanski kod" pattern="[0-9]{5}" />
+                <small id="postalCodeHelp" class="form-text text-muted">Poštanski kod mora da sadrži isključivo 5 cifara.</small>
+            </div>
+            <div class="form-group">
+                <label for="inputJMBG">JMBG</label>
+                <input type="text" class="form-control" id="inputJMBG" name="jmbg" required placeholder="Unesite JMBG" pattern="[0-9]{13}" />
+                <small id="jmbgHelp" class="form-text text-muted">JMBG mora da sadrži isključivo 13 cifara.</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Registrujte se</button>
+        </form>
+    </div>
+    <hr>
+    <div class="mt-2">
+        <p class="text-center mt-2">Već imate nalog? <a href="/auth/login">Prijavite se</a></p>
+    </div>
+</div>

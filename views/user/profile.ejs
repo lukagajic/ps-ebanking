@@ -1,0 +1,41 @@
+<%- include('../partials/header') %>
+
+<div class="jumbotron jumbotron-fluid d-flex justify-content-center align-items-center flex-column">
+    <h2 class="mb-3 text-center"><%= title %></h2>
+
+    <div id="profile-card" class="card d-flex justify-content-center" style="width: 18rem;">
+        <img class="card-img-top" src="/public/images/profile.png" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">
+                <i class="fas fa-user profile-icon-color"></i>
+                <%= currentUser.forename %> <%= currentUser.surname %>
+            </h5>
+            <p class="card-text">
+                <i class="fas fa-home profile-icon-color"></i>
+                <em><%= currentUser.address %>, <%= currentUser.postalCode %> <%= cityName %></em></p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <i class="fas fa-calendar-day profile-icon-color"></i>
+                <%= new Date(currentUser.dateOfBirth).getDate() %>.<%= new Date(currentUser.dateOfBirth).getMonth() + 1 %>.<%= new Date(currentUser.dateOfBirth).getFullYear() %>.
+            </li>
+            <li class="list-group-item">
+                <i class="far fa-id-card profile-icon-color"></i>
+                <%= currentUser.jmbg %>
+            </li>
+            <li class="list-group-item">
+                <i class="fas fa-venus-mars profile-icon-color"></i>
+                <% if(currentUser.gender === 'Male') { %>
+                    Muški
+                <% } %>
+                <% if(currentUser.gender === 'Female') { %>
+                    Ženski
+                <% } %>
+            </li>
+        </ul>
+        <div class="card-body">
+            <a href="/user/profile/edit" class="card-link">Izmenite podatke</a>
+            <a href="/user/profile/edit/password" class="card-link">Izmenite lozinku</a>
+        </div>
+    </div>
+</div>

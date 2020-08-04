@@ -1,0 +1,103 @@
+<%- include('../partials/header') %>
+
+<div class="jumbotron jumbotron-fluid">
+    <h2 class="mb-3 text-center"><%= title %></h2>
+    <h4 class="mb-3 text-center">Račun br. <strong><%= accountNumber %></strong></h4>
+    <h5 class="mb-3 text-center">Raspoloživo stanje: <strong><%= balance %> <%= account.Currency.dataValues.code %></strong></h5>
+    <hr>
+    
+    <div class="m-3">
+        <a href="/account/list" class="btn btn-primary">Lista računa</a>
+    </div>
+    
+    
+    <h3 class="m-3">Dolazne uplate</h3>
+    <hr>
+    <% if(account.InboundTransactions.length < 1) { %>
+        <p class="m-3">Nema dolaznih uplata za ovaj račun</p>
+    <% } else { %>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Datum uplate</th>
+                <th>Sa računa</th>
+                <th>Svrha uplate</th>
+                <th>Iznos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% account.InboundTransactions.forEach(transaction => { %>
+                <tr>
+                    <td>
+                        <%= new Date(transaction.transferedAt).getDate() %>.<%= new Date(transaction.transferedAt).getMonth() + 1 %>.<%= new Date(transaction.transferedAt).getFullYear() %>.
+                    </td>
+                    <td>
+                        <%= transaction.AccountSender.dataValues.accountNumber %>
+                    </td>
+                    <td>
+                        <%= transaction.paymentPurpose %>
+                    </td>
+                    <td>
+                        <% if (transaction.fromAccountId === account.dataValues.accountId) { %>
+                            -<%= transaction.amount %> RSD&nbsp;<i class="fas fa-arrow-right red-text"></i>
+                        <% }  %>
+                        <% if (transaction.toAccountId === account.dataValues.accountId) { %>
+                            <% if(account.Currency.code === 'EUR') { %>
+                                +<%= transaction.amount * 100 %> RSD&nbsp;<i class="fas fa-arrow-left green-text"></i>
+                            <% } else { %>
+                                +<%= transaction.amount %> RSD&nbsp;<i class="fas fa-arrow-left green-text"></i>
+                            <% } %>    
+                        <% }  %>
+                    </td>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+    <% } %>
+    <hr>
+
+    <% if(account.OutboundTransactions.length < 1) { %>
+        <p class="m-3">Nema odlaznih uplata za ovaj račun</p>
+    <% } else { %>
+    <h3 class="m-3">Odlazne uplate</h3>
+    <hr>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Datum uplate</th>
+                <th>Na račun</th>
+                <th>Svrha uplate</th>
+                <th>Iznos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% account.OutboundTransactions.forEach(transaction => { %>
+                <tr>
+                    <td>
+                        <%= new Date(transaction.transferedAt).getDate() %>.<%= new Date(transaction.transferedAt).getMonth() + 1 %>.<%= new Date(transaction.transferedAt).getFullYear() %>.
+                    </td>
+                    <td>
+                        <%= transaction.AccountReceiver.dataValues.accountNumber %>
+                    </td>
+                    <td>
+                        <%= transaction.paymentPurpose %>
+                    </td>
+                    <td>
+                        <% if (transaction.fromAccountId === account.dataValues.accountId) { %>
+                            -<%= transaction.amount %> RSD&nbsp;<i class="fas fa-arrow-right red-text"></i>
+                        <% }  %>
+                        <% if (transaction.toAccountId === account.dataValues.accountId) { %>
+                            +<%= transaction.amount %> RSD&nbsp;<i class="fas fa-arrow-left green-text"></i>
+                        <% }  %>
+                    </td>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+    <% } %>
+    <script>
+        document.querySelector('#btnOpenFilterForm').addEventListener('click', () => {
+            document.querySelector('#filterForm').classList.toggle('d-none');
+        });
+    </script>
+</div>

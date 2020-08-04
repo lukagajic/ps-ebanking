@@ -1,0 +1,40 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
+body {
+    background-color: #C2C2C2;
+}
+.form-login {
+    width: 100%;
+    max-width: 750px;
+}
+.navbar-brand {
+    margin: 0px;
+    width: 180px;
+    padding: 0px;
+}
+.alert {
+    width: 40%;
+    margin: 0px auto;
+ }
+ .form-wide {
+     width: 95%;
+ }
+ #profile-card {
+     width: 650px !important;
+     border-radius: 6px;
+     background-color: rgba(255, 255, 255, 0.4);
+ }
+ .card-img-top {
+     width: 25%;
+     margin: 0px auto;
+ }
+ .green-text {
+     color: #2ba156;
+ }
+ .red-text {
+     color: #F00;
+ }
+.profile-icon-color {
+    color: #15354f;
+}

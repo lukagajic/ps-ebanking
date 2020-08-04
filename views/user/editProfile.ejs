@@ -1,0 +1,84 @@
+<%- include('../partials/header') %>
+
+<div class="jumbotron jumbotron-fluid">
+    <h2 class="mb-3 text-center"><%= title %></h2>
+
+    <div class="mb-3 d-flex justify-content-center">
+        <form class="form-wide" action="/user/profile/edit" method="POST">
+            <div class="form-group">
+                <label for="inputForename">Ime</label>
+                <input type="text" class="form-control" id="inputForename" name="forename" required value="<%= currentUser.forename %>" autofocus />
+            </div>
+            <div class="form-group">
+                <label for="inputSurname">Prezime</label>
+                <input type="text" class="form-control" id="inputSurname" name="surname" required value="<%= currentUser.surname %>" />
+            </div>
+           <div class="form-group">
+                <label for="inputEmail">E-mail adresa</label>
+                <input type="email" name="email" class="form-control" id="inputEmail" required value="<%= currentUser.email %>" />
+            </div>
+            <div class="form-group">
+                <label for="inputCity">Izaberite grad</label>
+                <select class="form-control" name="city" id="inputCity">
+                    <% cities.forEach(city => { %>
+                        <% if(city.dataValues.name === cityName) { %> 
+                            <option selected value="<%= city.dataValues.cityId %>"><%= city.dataValues.name %></option>
+                        <% } else { %>
+                            <option value="<%= city.dataValues.cityId %>"><%= city.dataValues.name %></option>
+                        <% } %>
+                    <% }) %>
+                </select>                
+            </div>
+            <div class="form-group">
+                <label for="inputGender">Pol</label>
+                <select class="form-control" name="gender" id="inputGender">
+                    <% genders.forEach(gender => { %>
+                        <% if (gender == currentUser.gender.toLowerCase()) { %>
+                            <option selected value="<%= gender %>">
+                                <% if(gender === 'male') { %>
+                                    Muški
+                                <% } %>
+                                <% if(gender === 'female') { %>
+                                    Ženski
+                                <% } %>
+                            </option>
+                        <% } else { %>
+                            <option value="<%= gender %>">
+                                <% if(gender === 'male') { %>
+                                    Muški
+                                <% } %>
+                                <% if(gender === 'female') { %>
+                                    Ženski
+                                <% } %>
+                            </option>
+                        <% } %>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inputDateOfBirth">Datum rođenja</label>
+                <input class="form-control" type="date" value="<%= currentUser.dateOfBirth %>" id="inputDateOfBirth" name="birthdate">
+            </div>
+            <div class="form-group">
+                <label for="inputAddress">Adresa</label>
+                <input type="text" class="form-control" id="inputAddress" name="address" required value="<%= currentUser.address %>" />
+            </div>
+            <div class="form-group">
+                <label for="inputPostalCode">Poštanski kod</label>
+                <input type="text" class="form-control" id="inputPostalCode" name="postalCode" required value="<%= currentUser.postalCode %>" pattern="[0-9]{5}" />
+                <small id="postalCodeHelp" class="form-text text-muted">Poštanski kod mora da sadrži isključivo 5 cifara.</small>
+            </div>
+            <div class="form-group">
+                <label for="inputJMBG">JMBG</label>
+                <input type="text" class="form-control" id="inputJMBG" name="jmbg" required value="<%= currentUser.jmbg %>" pattern="[0-9]{13}" />
+                <small id="jmbgHelp" class="form-text text-muted">JMBG mora da sadrži isključivo 13 cifara.</small>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-success">Izmenite profil</button>
+            </div>
+        </form>
+    </div>
+    <div class="mt-2 d-flex justify-content-center">
+        <a class="btn btn-primary" href="/user/profile">Povratak na profil</a>
+    </div>
+</div>

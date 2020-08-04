@@ -1,0 +1,41 @@
+<%- include('../partials/header') %>
+
+<div class="jumbotron jumbotron-fluid">
+    <h2 class="mb-3 text-center"><%= title %></h2>
+    
+    <hr>
+
+    <form method="POST" action="/transaction/foreign/new" class=" mr-3 ml-3">
+        <div class="row">
+            <div class="col-lg-6 offset-3 card form-group p-3">
+                <div class="form-group">
+                    <label for="senderAccountNumber">Sa računa</label>
+                    <select name="senderAccountNumber" id="senderAccountNumber" class="form-control">
+                        <% accounts.forEach(account => { %>
+                            <option value="<%= account.dataValues.accountNumber %>"><%= account.dataValues.Currency.dataValues.code %> - <%= account.dataValues.accountNumber %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="receiverAccountNumber">Na račun</label>
+                    <select name="receiverAccountNumber" id="receiverAccountNumber" class="form-control">
+                        <% accounts.forEach(account => { %>
+                            <option value="<%= account.dataValues.accountNumber %>"><%= account.dataValues.Currency.dataValues.code %> - <%= account.dataValues.accountNumber %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Iznos</label>
+                    <input autofocus class="form-control" type="number" name="amount" id="amount" min="1.00" step="0.01">
+                </div>
+                <small><strong>Napomena: Dozvoljena je isključivo razmena deviza (računi sa ratličitim valutama)!</strong></small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 offset-3">
+                <button type="submit" class="btn btn-success">Zameni devize</button>
+                <a class="btn btn-primary" href="/account/list">Povratak na listu računa</a>
+            </div>
+        </div>        
+    </form>
+</div>

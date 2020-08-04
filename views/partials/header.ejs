@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - E-Banking</title>
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/public/css/main.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+    <link rel="shortcut icon" href="/public/images/favicon.png">
+    <script src="https://kit.fontawesome.com/b20eaa27ce.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header class="navbar navbar-expand-lg navbar-dark bg-dark d-flex justify-content-center">
+            <img src="/public/images/logo.png" alt="Logo" class="navbar-brand">
+        </header>
+        <% if(userId) { %>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <span class="navbar-brand"></a>Korisnički panel</span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account/list">Računi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/transaction/foreign/new">Menjačnica</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/profile">Profil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auth/logout">Odjava</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <% } %>

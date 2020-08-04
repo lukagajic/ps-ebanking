@@ -1,0 +1,121 @@
+<%- include('../partials/header') %>
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="mb-3 ml-2">
+        <a class="btn btn-success" href="/account/create">
+            <i class="fas fa-plus-circle"></i>
+            Kreiranje novog računa
+        </a>
+    </div>
+    <!-- <div class="mb-3 ml-2">
+        <a class="btn btn-success" href="/transaction/new">
+            <i class="fas fa-plus-circle"></i>
+            Nova uplata
+        </a>
+    </div> -->
+
+    <h2 class="mb-3 text-center"><%= title %></h2>
+    
+    <% if(successMessage) { %>
+        <div class="alert alert-success mb-3" role="alert">
+            <p class="text-center">
+                <%= successMessage %>
+            </p>
+        </div>
+    <% } %>
+
+    <% if(errors) {%>
+        <div class="alert alert-danger mb-3" role="alert">
+        <% errors.forEach(error => { %>
+            <p class="text-center"><%= error.msg %></p>
+        <% }) %>
+        </div>
+    <% } %>
+
+    <hr>
+    <% if(user.Accounts.length > 0) { %>
+    <h3 class="mb-3 text-center">
+        Tekući računi
+    </h3>
+    <!-- Prva tabela - Domaći računi -->
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Broj računa</th>
+                <th>Valuta</th>
+                <th>Stanje</th>
+                <th class="w-25" colspan="2">Akcije</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% user.Accounts.forEach(account => { %>
+                <% if(account.Currency.code === 'RSD') { %>
+                <tr>
+                    <td><%= account.accountNumber %></td>
+                    <td><%= account.Currency.code %></td>
+                    <td>
+                        <% if(account.balance >=0) { %>
+                            <i class="fas fa-arrow-circle-up green-text"></i>&nbsp;<%= account.balance %>                            
+                        <% } else { %>
+                            <i class="fas fa-arrow-circle-down red-text"></i>&nbsp;<%= account.balance %>
+                        <% } %>
+                    </td>
+                    <td>
+                        <a href="/transaction/list?accountNumber=<%= account.accountNumber %>" class="btn btn-primary">
+                            <i class="fas fa-list"></i> Transakcije
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/transaction/new?accountNumber=<%= account.accountNumber %>" class="btn btn-success">
+                            <i class="fas fa-plus"></i> Uplata
+                        </a>
+                    </td>
+                </tr>
+                <% } %>
+            <% }) %>
+        </tbody>
+    <!-- Prva tabela - Strani računi -->
+    </table>
+    
+
+    <hr>
+    <h3 class="mb-3 text-center">
+        Devizni računi
+    </h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Broj računa</th>
+                <th>Valuta</th>
+                <th>Balans</th>
+                <th class="w-25">Akcije</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% user.Accounts.forEach(account => { %>
+                <% if(account.Currency.code === 'EUR') { %>
+                <tr>
+                    <td><%= account.accountNumber %></td>
+                    <td><%= account.Currency.code %></td>
+                    <td>
+                        <% if(account.balance >=0) { %>
+                            <i class="fas fa-arrow-circle-up green-text"></i>&nbsp;<%= account.balance %>                            
+                        <% } else { %>
+                            <i class="fas fa-arrow-circle-down red-text"></i>&nbsp;<%= account.balance %>
+                        <% } %>
+                    </td>
+                    <td>
+                        <a href="/transaction/list?accountNumber=<%= account.accountNumber %>" class="btn btn-primary">
+                            <i class="fas fa-list"></i> Pregled transakcija
+                        </a>
+                    </td>
+                </tr>
+                <% } %>
+            <% }) %>
+        </tbody>
+    </table>
+    <% } else { %>
+        <p class="m-3">Trenutno ne postoji nijedan račun</p>
+    <% } %>
+</div>

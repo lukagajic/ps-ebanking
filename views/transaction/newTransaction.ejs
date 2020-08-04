@@ -1,0 +1,50 @@
+<%- include('../partials/header') %>
+
+<div class="jumbotron jumbotron-fluid">
+    <h2 class="mb-3 text-center"><%= title %></h2>
+    <h4 class="mb-3 text-center">Račun br. <strong><%= accountNumber %></strong></h4>
+    
+    <hr>
+
+    <form method="POST" action="/transaction/new?accountNumber=<%= accountNumber %>" class=" mr-3 ml-3 needs-validation formaTransakcije" novalidate>
+        <div class="card form-group p-3">
+            <div class="form-group">
+                <label for="senderName">Naziv uplatioca</label>
+                <input disabled type="text" value="<%= owner.forename + ' ' + owner.surname %>" class="form-control" id="senderName" required>
+            </div>
+            <div class="form-row">
+                <div class="col-sm-12 col-lg-6">
+                    <label for="adresaUplatioca">Adresa uplatioca</label>
+                    <input value="<%= owner.address + ', ' + owner.postalCode %>" disabled type="text" class="form-control" id="adresaUplatioca" required>
+                </div>
+                <div class="col-sm-12 col-lg-6">
+                    <label for="mestoUplatioca">Mesto Uplatioca</label>
+                    <input value="<%= ownerCity.name %>" disabled type="text" class="form-control" id="mestoUplatioca" required>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card form-group p-3">
+            <div class="row">
+                <div class="col">
+                    <label for="receiverAccountNumber">Račun primaoca</label>
+                    <input pattern="[0-9]{3}\-[0-9]{13}\-[0-9]{2}" name="receiverAccountNumber" placeholder="Prema šablonu 123-1234567890123-12" type="text" class="form-control" id="receiverAccountNumber" required>
+                </div>                
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-8">
+                    <label for="paymentPurpose">Svrha plaćanja</label>
+                    <input name="paymentPurpose" type="text" class="form-control" id="paymentPurpose" required>
+                </div>
+                <div class="col-lg-4">
+                    <label for="amount">Iznos</label>
+                    <input name="amount" type="number" class="form-control" min="1.00" step="0.01" id="amount" required>
+                </div>
+            </div>
+        </div>
+        
+        <button type="submit" class="btn btn-success">Izvrši transakciju</button>
+        <a class="btn btn-primary" href="/account/list">Povratak na listu računa</a>
+    </form>
+</div>
