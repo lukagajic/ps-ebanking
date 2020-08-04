@@ -1,2 +1,2 @@
 # ps-elektronsko-bankarstvo
-Aplikacija za elektronsko bankarstvo
+Final exam project from the course "Software design"
