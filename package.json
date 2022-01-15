@@ -36,7 +36,7 @@
     "node-cron": "^2.0.3",
     "request": "^2.88.2",
     "sequelize": "^5.21.7",
-    "shelljs": "^0.8.4",
+    "shelljs": "^0.8.5",
     "supertest": "*"
   },
   "devDependencies": {
